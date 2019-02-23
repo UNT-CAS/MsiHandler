@@ -1,4 +1,5 @@
-function Get-MsiFileInformation {
+function Get-MsiFileInfo {
+    [OutputType([PSObject])]
     param(
         [Parameter(
             Mandatory = $true,
@@ -6,31 +7,24 @@ function Get-MsiFileInformation {
             ValueFromPipelineByPropertyName = $true
         )]
         [ValidateNotNullOrEmpty()]
-        [ValidateScript( {
-            if (([System.IO.FileInfo]$_).Extension -eq '.msi') {
-                $true
-            }
-            else {
-                throw 'Path must be a Windows Installer Database (*.msi) file.'
-            }
-        })]
-        [System.IO.FileInfo]$Path,
+        [System.IO.FileInfo] $Path,
  
         [parameter(Mandatory = $false)]
         [ValidateNotNullOrEmpty()]
-        # [ValidateSet('ProductCode', 'ProductVersion', 'ProductName', 'Manufacturer', 'ProductLanguage', 'FullVersion')]
         [string[]] $Properties
     )
     Begin {
         if (-not $Properties) {
             $query = 'SELECT * FROM Property'
         } else {
-            $queryWhere = ($Properties | Foreach-Object { 'Property = "{0}"' -f $_ }) -join ' AND '
-            $query = 'SELECT Value FROM Property WHERE {0}' -f $queryWhere
+            $queryWhere = ($Properties | Foreach-Object { 'Property = ''{0}''' -f $_ }) -join ' OR '
+            $query = 'SELECT Property, Value FROM Property WHERE {0}' -f $queryWhere
         }
+        Write-Verbose "[Get-MsiFileInfo] MSI Query: ${query}"
     }
-
+    
     Process {
+        Write-Verbose "[Get-MsiFileInfo] Path: ${Path}"
         try {
             # Read property from MSI database
             $windowsInstaller = New-Object -ComObject windowsInstaller.Installer
@@ -46,7 +40,9 @@ function Get-MsiFileInformation {
                 if (-not [string]::IsNullOrEmpty($record)) {
                     # Return the value
                     $name = $record.GetType().InvokeMember('StringData', 'GetProperty', $null, $record, 1)
+                    Write-Verbose "[Get-MsiFileInfo] 1 (name): ${name}"
                     $value = $record.GetType().InvokeMember('StringData', 'GetProperty', $null, $record, 2)
+                    Write-Verbose "[Get-MsiFileInfo] 2 (value): ${value}"
                     $msiProperties | Add-Member -MemberType NoteProperty -Name $name -Value $value
                 }
             } until ([string]::IsNullOrEmpty($record))
@@ -70,3 +66,11 @@ function Get-MsiFileInformation {
         [System.GC]::Collect()
     }
 }
+
+$VerbosePreference = 'c'
+
+# Get-ChildItem -LiteralPath 'C:\Users\verti\Downloads' -Filter '*.msi' -Recurse | Get-MsiFileInfo
+# Get-MsiFileInfo -Path 'C:\Users\verti\Downloads\Rapid7_x64\agentInstaller-x86_64.msi'
+# Get-MsiFileInfo -Path 'C:\Users\verti\Downloads\Rapid7_x64\agentInstaller-x86_64.msi' -Properties ProductName
+# Get-MsiFileInfo -Path 'C:\Users\verti\Downloads\Rapid7_x64\agentInstaller-x86_64.msi' -Properties ProductName,ProductVersion
+Get-MsiFileInfo -Path 'C:\Users\verti\Downloads\Rapid7_x64\agentInstaller-x86_64.msi' -Properties ProductNamesss
