@@ -5,6 +5,13 @@
 
 This modules consists of several functions for handling MSI files.
 
+# Quick Start
+
+```powershell
+Install-Module MsiHandler
+Import-Module MsiHandler
+```
+
 # Available Functions
 
 ## Get-MsiFileInfo
@@ -28,10 +35,33 @@ ProductName     : SurfaceBook Update 18_021_00 (64 bit)
 ProductVersion  : 18.021.18206.0
 ```
 
-Additional parameters available:
-
-- Properties
-- GetPublicProperties
-- DoNotIncludeFileInfo
-
 [Full usage documentations available in the wiki](https://github.com/UNT-CAS/MsiHandler/wiki/Get-MsiFileInfo).
+
+## New-MsiTransformFile
+
+Create an MST file on the fly.
+
+```powershell
+$newMsiTransformFile = @{
+    MsiPath      = 'dev\TestMSIs\7z1900-x64.msi'
+    MstPath      = 'dev\test.mst'
+    Properties = @{
+        ALLUSERS           = 'ValueChanged'
+        MSIRMSHUTDOWN      = 'ValueChanged'
+        SOMETHINGTOADD     = 'ValueAdded'
+        SOMETHINGELSETOADD = 'ValueAdded'
+    }
+}
+
+New-MsiTransformFile @newMsiTransformFile
+```
+
+**Output:**
+
+```text
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-a----        2/28/2019   3:46 AM          20480 test.mst
+```
+
+[Full usage documentations available in the wiki](https://github.com/UNT-CAS/MsiHandler/wiki/New-MsiTransformFile).

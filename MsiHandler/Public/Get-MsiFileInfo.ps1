@@ -1,3 +1,12 @@
+<#
+    .SYNOPSIS
+
+        Get properties out of MSI file.
+
+    .DESCRIPTION
+
+        Usage Documentation: https://github.com/UNT-CAS/MsiHandler/wiki/Get-MsiFileInfo
+#>
 function Get-MsiFileInfo {
     [OutputType([hashtable])]
     param(
