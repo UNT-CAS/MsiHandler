@@ -1,20 +1,32 @@
-# Get-MsiFileInformation
+This modules consists of several functions for handling MSI files.
 
-Get properties out of MSI file.
+# Available Functions
 
-# Examples
+## Get-MsiFileInfo
 
-All three methods of calling supported
+This function will read the properties out of an MSI file without locking the specified file.
+The MSI file's `[IO.FileInfo]` is returned as the `.IO.FileInfo` property.
+Here's the default usage:
 
 ```powershell
-
+Get-MsiFileInfo -Path 'C:\Temp\SurfaceBook_Win10_15063_1802100_0.msi'
 ```
 
-# ToDo
+**Output:**
 
-- [ ] Improve documentation
-- [ ] Publish the PSGallery
+```text
+.IO.FileInfo    : C:\Temp\SurfaceBook_Win10_15063_1802100_0.msi
+Manufacturer    : Microsoft
+ProductCode     : {1CD69D1F-0C2D-46A0-89A9-F29582DC718F}
+ProductLanguage : 1033
+ProductName     : SurfaceBook Update 18_021_00 (64 bit)
+ProductVersion  : 18.021.18206.0
+```
 
-# Notes
+Additional parameters available:
 
-- Code adapted from @NickolajA's [`Get-MSIFileInformation.ps1`](https://www.scconfigmgr.com/2014/08/22/how-to-get-msi-file-information-with-powershell/).
+- Properties
+- GetPublicProperties
+- DoNotIncludeFileInfo
+
+[Full usage documentations available in the wiki](https://github.com/UNT-CAS/MsiHandler/wiki/Get-MsiFileInfo).
