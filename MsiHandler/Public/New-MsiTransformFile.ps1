@@ -235,22 +235,12 @@ function New-MsiTransformFile {
 
     $existingProperties = (Get-MsiFileInfo $MsiPath -Properties *).PSObject.Properties.Name
 
-    $replacements = @{}
-    $additions = @{}
     foreach ($property in $Properties.GetEnumerator()) {
         if ($existingProperties -contains $property.Name) {
-            $replacements.Add($property.Name, $property.Value)
+            [Msi]::AddReplacement($property.Name, $property.Value)
         } else {
-            $additions.Add($property.Name, $property.Value)
+            [Msi]::AddAddition($property.Name, $property.Value)
         }
-    }
-
-    foreach ($replacement in $replacements.GetEnumerator()) {
-        [Msi]::AddReplacement($replacement.Name, $replacement.Value)
-    }
-
-    foreach ($addition in $additions.GetEnumerator()) {
-        [Msi]::AddAddition($addition.Name, $addition.Value)
     }
 
     # Create a new STDOUT for catching assembly output
