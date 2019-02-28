@@ -149,12 +149,7 @@ Describe 'Get-MsiFileInfo' {
         }
 
         It 'Default Properties: *Should Warning*' {
-            { $script:results = Get-ChildItem -Path $destPath | Get-MsiFileInfo -WarningAction Stop } | Should Throw
-        }
-
-        It 'Default Properties: Warning Should be correct type' {
-            # $Error[0] | Should BeOfType [System.Management.Automation.ActionPreferenceStopException]
-            $Error[0] | Should BeLike 'The running command stopped because the preference variable "WarningPreference" or common parameter is set to Stop: *'
+            { [void] (Get-ChildItem -Path $destPath | Get-MsiFileInfo -WarningAction Stop) } | Should Throw
         }
     }
 
@@ -167,10 +162,6 @@ Describe 'Get-MsiFileInfo' {
 
         It 'Default Properties: *Should Warning*' {
             { [void] (Get-ChildItem -Path $destPath | Get-MsiFileInfo -IncludeNonMsiFileInfo -WarningAction Stop) } | Should Throw
-        }
-
-        It 'Default Properties: Warning Should be correct type' {
-            $Error[0] | Should BeLike 'The running command stopped because the preference variable "WarningPreference" or common parameter is set to Stop: *'
         }
 
         $script:fileCount = (Get-ChildItem -Path $destPath | Measure-Object).Count

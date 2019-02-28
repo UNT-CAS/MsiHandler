@@ -185,7 +185,7 @@ Task TestModule -Description "Run Pester Tests and CoeCoverage" -Depends Install
         OutputFile   = ([IO.FileInfo] '{0}\dev\CodeCoverage.xml' -f $PSScriptRootParent)
     }
     Write-Host "[BUILD TestModule] Invoke-Pester $($invokePester | ConvertTo-Json)" -ForegroundColor Magenta
-    $res = Invoke-Pester @invokePester
+    $res = Invoke-Pester @invokePester -EnableExit
     # Write-Host "[BUILD TestModule] Pester Result: $($res | ConvertTo-Json)" -ForegroundColor Magenta
     
     $exportCodeCovIoJson = @{

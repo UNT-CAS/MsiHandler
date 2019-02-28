@@ -1,3 +1,8 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/2dv8llmk58ix7i83?svg=true)](https://ci.appveyor.com/project/VertigoRay/msihandler)
+[![codecov](https://codecov.io/gh/UNT-CAS/MsiHandler/branch/master/graph/badge.svg)](https://codecov.io/gh/UNT-CAS/MsiHandler)
+[![version](https://img.shields.io/powershellgallery/v/MsiHandler.svg)](https://www.powershellgallery.com/packages/MsiHandler)
+[![downloads](https://img.shields.io/powershellgallery/dt/MsiHandler.svg?label=downloads)](https://www.powershellgallery.com/stats/packages/MsiHandler?groupby=Version)
+
 This modules consists of several functions for handling MSI files.
 
 # Available Functions

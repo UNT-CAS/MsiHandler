@@ -8,7 +8,7 @@
         Target         = '$PWD\.scripts\requirements.prep.ps1'
         DependsOn      = @('powershell-yaml')
     }
-    'Pester'           = 'latest'  # Tested with: 4.3.1
+    'Pester'           = 'latest'  # Tested with: 4.4.0
     'powershell-yaml'  = 'latest'  # Tested with: 0.3.2
     'psake'            = 'latest'  # Tested with: 4.7.0
     'PSDeploy'         = 'latest'  # Tested with: 0.2.3
