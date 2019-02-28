@@ -246,16 +246,16 @@ function New-MsiTransformFile {
     }
 
     foreach ($replacement in $replacements.GetEnumerator()) {
-        [Msi]::AddReplacement($replacement.Name, $replacement.Value);
+        [Msi]::AddReplacement($replacement.Name, $replacement.Value)
     }
 
     foreach ($addition in $additions.GetEnumerator()) {
-        [Msi]::AddAddition($addition.Name, $addition.Value);
+        [Msi]::AddAddition($addition.Name, $addition.Value)
     }
 
     # Create a new STDOUT for catching assembly output
     $writer = New-Object IO.StringWriter
-    [Console]::SetOut($writer);
+    [Console]::SetOut($writer)
 
     # This doesn't write to a PowerShell stream
     #   It writes, but to something else.
@@ -264,9 +264,9 @@ function New-MsiTransformFile {
 
     # Store the output and bring back real STDOUT
     $result = $writer.ToString()
-    $standardOutput = New-Object IO.StreamWriter([Console]::OpenStandardOutput());
-    $standardOutput.AutoFlush = $true;
-    [Console]::SetOut($standardOutput);
+    $standardOutput = New-Object IO.StreamWriter([Console]::OpenStandardOutput())
+    $standardOutput.AutoFlush = $true
+    [Console]::SetOut($standardOutput)
     
     Write-Verbose "[New-MsiTransformFile] MSI CreateTransform: ${result}"
     
