@@ -279,16 +279,3 @@ function New-MsiTransformFile {
 
     return $mstPath
 }
-
-$newMsiTransformFile = @{
-    MsiPath      = 'dev\TestMSIs\7z1900-x64.msi'
-    MstPath      = 'dev\test.mst'
-    Properties = @{
-        ALLUSERS           = 'ValueChanged'
-        MSIRMSHUTDOWN      = 'ValueChanged'
-        SOMETHINGTOADD     = 'ValueAdded'
-        SOMETHINGELSETOADD = 'ValueAdded'
-    }
-}
-
-New-MsiTransformFile @newMsiTransformFile
