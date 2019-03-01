@@ -32,7 +32,14 @@ build_script:
 
 deploy:
   release: v$(APPVEYOR_BUILD_VERSION)
-  description: MsiHandler v$(appveyor_build_version)
+  description: |
+    MsiHandler v$(appveyor_build_version) install is simple via PowerShell:
+    
+    ```powershell
+    Install-Module MsiHandler -MinimumVersion $(appveyor_build_version)
+    ```
+    
+    [The raw nupkg file is available via PowerShell Gallery](https://www.powershellgallery.com/packages/MsiHandler/$(appveyor_build_version)#manual-download).
   provider: GitHub
   auth_token:
     secure: QHZ4MqboF4PW2/fTZ36UmXmru7Va8Hds5kGN6KB1HL4NcnGlAXKemtHZVnbJ804F
