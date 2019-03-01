@@ -4,7 +4,7 @@
 [IO.DirectoryInfo] $projectDirectory = Join-Path -Path $projectRoot -ChildPath $projectDirectoryName -Resolve
 [IO.FileInfo]      $testFile = Join-Path -Path $projectDirectory -ChildPath (Join-Path -Path 'Public' -ChildPath ($pesterFile.Name -replace '\.Tests\.', '.')) -Resolve
 . "${projectDirectory}\Private\Add-MsiType.ps1"
-. "${projectDirectory}\Private\Get-MsiFileInfo.ps1"
+. "${projectDirectory}\Public\Get-MsiFileInfo.ps1"
 . $testFile
 
 $testMsiUrls = (Import-PowerShellDataFile ('{0}\TestMsiUrls.psd1' -f $PSScriptRoot)).URLs
