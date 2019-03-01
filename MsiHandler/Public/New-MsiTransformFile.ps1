@@ -61,17 +61,3 @@ function New-MsiTransformFile {
     # $MstPath.Refresh()
     return $MstPath
 }
-
-
-# $script:newMsiTransformFile = @{
-#     MsiPath    = '.\dev\testMSIs\Firefox%20Setup%2065.0.msi'
-#     MstPath    = '.\dev\foo.mst'
-#     Properties = @{
-#         ALLUSERS           = 'ValueChanged'
-#         MSIRMSHUTDOWN      = 'ValueChanged'
-#         SOMETHINGTOADD     = 'ValueAdded'
-#         SOMETHINGELSETOADD = 'ValueAdded'
-#     }
-# }
-
-# New-MsiTransformFile @script:newMsiTransformFile
