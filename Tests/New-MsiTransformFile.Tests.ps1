@@ -47,13 +47,19 @@ Describe 'New-MsiTransformFile' {
             }
 
             It 'New-MsiTransformFile: Should Work' {
+                if ($env:APPVEYOR -eq 'True') {
+                    Set-ItResult -Skipped -Because 'AppVeyor does not have an MSI service available for testing, so this will error with 1631.'
+                }
+
                 { $script:results = New-MsiTransformFile @script:newMsiTransformFile } | Should Not Throw
             }
 
             Write-Host "Results: $($script:results | Out-String)" -ForegroundColor Cyan
             Remove-Variable -Scope 'Script' -Name 'results' -Force -ErrorAction Ignore
             
-            $script:newMsiTransformFile.MsiPath = New-TemporaryFile | Move-Item -Destination 'dev\TestMSIs\tmp.msi' -Force -Verbose
+            [IO.FileInfo] $dst = "${projectDirectory}\dev\TestMSIs\tmp.msi"
+            [void] (New-Item -ItemType Directory -Path $dst.Directory -Force)
+            $script:newMsiTransformFile.MsiPath = New-TemporaryFile | Move-Item -Destination $dst -Force -Verbose
             
             It 'New-MsiTransformFile: Should Error' {
                 { $script:results = New-MsiTransformFile @script:newMsiTransformFile } | Should Throw
