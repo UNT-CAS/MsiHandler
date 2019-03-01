@@ -6,6 +6,7 @@ version: 0.3.{build}
 # We can force this by adding [skip ci] or [ci skip] anywhere in commit message 
 skip_commits:
   message: /update(?:|d|s) readme\..*/
+skip_tags: true
 
 environment:
   PSGalleryApiKey:
@@ -40,14 +41,13 @@ deploy:
   prerelease: false
   on:
     branch: master                 # release from master branch only
-    APPVEYOR_REPO_TAG: true        # deploy except on tag push only
 
 
 
 on_success:
 # If build was started by pushed tag; deploy it.
 - ps: |
-    if (($env:APPVEYOR_REPO_BRANCH -eq 'master') -and ($env:APPVEYOR_REPO_TAG -eq 'True')) {
+    if (($env:APPVEYOR_REPO_BRANCH -eq 'master')) {
       Write-Host "[AppVeyor] On Success; deploying ..." -Foregroundcolor Green
       Invoke-PSDeploy -Path '.\.scripts\deploy.ps1' -Force
     }
