@@ -5,6 +5,8 @@
 [IO.FileInfo]      $testFile = Join-Path -Path $projectDirectory -ChildPath (Join-Path -Path 'Public' -ChildPath ($pesterFile.Name -replace '\.Tests\.', '.')) -Resolve
 . $testFile
 
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
 $testMsiUrls = (Import-PowerShellDataFile ('{0}\TestMsiUrls.psd1' -f $PSScriptRoot)).URLs
 [Collections.ArrayList] $testMsiFiles = @()
 

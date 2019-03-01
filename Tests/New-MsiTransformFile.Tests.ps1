@@ -7,6 +7,8 @@
 . "${projectDirectory}\Public\Get-MsiFileInfo.ps1"
 . $testFile
 
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
 $testMsiUrls = (Import-PowerShellDataFile ('{0}\TestMsiUrls.psd1' -f $PSScriptRoot)).URLs
 [Collections.ArrayList] $testMsiFiles = @()
 
