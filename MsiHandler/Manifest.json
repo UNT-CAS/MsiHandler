@@ -1,7 +1,7 @@
 {
     "ModuleName": "MsiHandler",
     "ModuleVersion": "Taken From '.appveyor.yml` + AppVeyor Build Number; done in the `.scripts\\version.ps1` file.",
-    "Description": "Query `quser.exe` and return a proper PowerShell Object.",
+    "Description": "This modules consists of several functions for handling MSI files. README is on GitHub: https://github.com/UNT-CAS/MsiHandler",
     "Author": "Raymond Piller",
     "CompanyName": "Computing for Arts + Sciences, University of North Texas",
     "Copyright": "(c) {0} University of North Texas. All rights reserved.",
